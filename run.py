@@ -9,8 +9,8 @@ if not os.path.exists(outputs_path):
     os.mkdir(outputs_path)
 
 # Read environment variables
-rainfall_total = 60 #int(os.getenv('TOTAL_DEPTH'))
-duration = 2 #int(os.getenv('DURATION'))
+rainfall_total = int(os.getenv('TOTAL_DEPTH'))
+duration = int(os.getenv('DURATION'))
 
 unit_profile = np.array([0.017627993, 0.027784045, 0.041248418, 0.064500665, 0.100127555, 0.145482534, 0.20645758,
                          0.145482534, 0.100127555, 0.064500665, 0.041248418, 0.027784045, 0.017627993])
