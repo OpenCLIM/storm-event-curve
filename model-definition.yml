@@ -1,7 +1,9 @@
-kind: Model
-api_version: v1beta1
+kind: M
+api_version: v1beta3
 metadata:
   display_name: Storm Event Curve
+  contact_point_name: Olivia Butters
+  contact_point_email: olivia.butters@newcastle.ac.uk
   name: rainfall-curve
   publisher: Newcastle University
   summary: > 
@@ -48,8 +50,20 @@ spec:
           - name: '24'
             title: '24'
    
+    dataslots:
+      - name: Parameters
+        description:
+          All input parameters and their values are stored in a csv file.
+        path: inputs/parameters/
+        required: false
+          
   outputs:
     datasets:
       - name: outputs/data/
         type: folder
         description: path to model outputs
+
+      - name: outputs/parameters/*
+        type: folder
+        description:
+          All parameters and their values are stored in a csv file.
