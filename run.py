@@ -46,7 +46,7 @@ with open(os.path.join(outputs_path,'rainfall_data.txt'),'a') as f:
 f.close()
 
 # Print all of the input parameters to an excel sheet to be read in later
-with open(os.path.join('storm-parameters.csv'), 'w') as f:
+with open(os.path.join(parameter_outputs_path,'storm-parameters.csv'), 'w') as f:
     f.write('PARAMETER,VALUE\n')
     f.write('TOTAL_DEPTH,%s\n' %rainfall_total)
     f.write('DURATION,%s\n' %duration)
