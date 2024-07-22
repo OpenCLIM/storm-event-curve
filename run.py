@@ -4,9 +4,18 @@ import os
 
 data_path = os.getenv('DATA_PATH','/data')
 inputs_path = os.path.join(data_path, 'inputs')
+parameters_path = os.path.join(inputs_path, 'parameters')
 outputs_path = os.path.join(data_path, 'outputs')
 if not os.path.exists(outputs_path):
     os.mkdir(outputs_path)
+parameter_outputs_path = os.path.join(outputs_path, 'parameters')
+parameter_outputs_path_ = outputs_path + '/' + 'parameters'
+if not os.path.exists(parameter_outputs_path):
+    os.mkdir(parameter_outputs_path_)
+
+# Look to see if a parameter file has been added
+parameter_file = glob(parameters_path + "/*.csv", recursive = True)
+print('parameter_file:', parameter_file)
 
 # Read environment variables
 rainfall_total = int(os.getenv('TOTAL_DEPTH'))
@@ -32,3 +41,21 @@ with open(os.path.join(outputs_path,'rainfall_data.txt'),'a') as f:
     print('* * *', file = f)
     print(rainfall.to_string(header=False), file=f)
 f.close()
+
+# Move the amended parameter file to the outputs folder
+if len(parameter_file) == 1 :
+    file_path = os.path.splitext(parameter_file[0])
+    print('Filepath:',file_path)
+    filename=file_path[0].split("/")
+    print('Filename:',filename[-1])
+
+    src = parameter_file[0]
+    print('src:',src)
+    dst = os.path.join(parameter_outputs_path,filename[-1] + '.csv')
+    print('dst,dst')
+    shutil.copy(src,dst)
+
+    # Print all of the input parameters to an excel sheet to be read in later
+    with open(os.path.join(dst), 'a') as f:
+        f.write('TOTAL_DEPTH,%s\n' %rainfall_total)
+        f.write('DURATION,%s\n' %duration)
